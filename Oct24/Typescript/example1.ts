@@ -20,7 +20,7 @@ const varName1: string = "text 1";
 
 const varName2: boolean = true;
 const varName3: number = 1;
-const varName4: bigint = 1n;
+// const varName4: bigint = 1n;
 const todaysDate: Date = new Date();
 
 const person: {
