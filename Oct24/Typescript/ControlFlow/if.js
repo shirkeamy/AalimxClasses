@@ -30,3 +30,7 @@ else {
     console.log(employee);
     console.log("Employee is not eligible for PF");
 }
+// condtion ? true statement : false statement
+var isStudentPass = false;
+var passingStatus = isStudentPass ? "Pass" : "Failed";
+console.log("Student is: ", passingStatus);

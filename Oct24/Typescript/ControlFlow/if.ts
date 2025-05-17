@@ -46,3 +46,25 @@ if (employee.salary >= 1200) {
     console.log(employee);
     console.log("Employee is not eligible for PF");
 }
+
+
+// condtion ? true statement : false statement
+
+let isStudentPass: boolean = false;
+
+let passingStatus: string = isStudentPass ? "Pass" : "Failed";
+
+console.log("Student is: ", passingStatus)
+
+
+// (employee.salary >= 1200) ? {
+//     let increment = employee.salary * 2;
+//     employee.salary = increment;
+//     console.log(employee);
+//     console.log("Employee is eligible for PF");
+// } : {
+//     let increment = employee.salary * 5;
+//     employee.salary = increment;
+//     console.log(employee);
+//     console.log("Employee is not eligible for PF");
+// }
