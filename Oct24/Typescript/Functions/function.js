@@ -12,9 +12,9 @@ function Message(userName) {
 }
 Message("John Doe");
 // variable as fun
-// let add: (a: number, b: number) => number = (a: number, b: number) {
-//     return a+b;
-// }
+var addsdfasd = function (a, b) {
+    return a + b;
+};
 // let funName: (a: number, b: number) => dataType = function (a: number, b: number) {
 // }
 var add1 = function (a, b) {
@@ -33,3 +33,12 @@ function multiplication(a, b, c) {
 }
 var mul = multiplication(1, 3, 5);
 console.log(mul);
+function finalPrice(price, disc) {
+    if (disc === void 0) { disc = 10; }
+    var myDisc = price * (disc / 100);
+    return price - myDisc;
+}
+var myPrice = finalPrice(120);
+console.log("discount on 120 and my final payment is: ", myPrice);
+var NewMyPrice = finalPrice(120, 15);
+console.log("discount on 120 and my final payment after 15% discount is: ", NewMyPrice);
