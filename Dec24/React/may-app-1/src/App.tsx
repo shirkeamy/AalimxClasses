@@ -1,4 +1,6 @@
 import React from 'react';
+import MainHeading from './Components/MainHeading';
+import UserList from './Components/UserList';
 
 function App() {
 
@@ -7,9 +9,13 @@ function App() {
 
   return (
     <>
+      <MainHeading />
       <h1 key={"welcome-msg"} className='text-success'>
         Welcome, {userName}
       </h1>
+      <hr />
+      <UserList />
+      <hr />
       <ul key={"numbers"}>
         {
           numbers.map((num: number, index: number) => {
