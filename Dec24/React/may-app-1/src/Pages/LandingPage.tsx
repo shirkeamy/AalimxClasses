@@ -66,33 +66,6 @@ const LandingPage: React.FC = () => {
                     This page is a demonstration of how to build a simple, clean, and maintainable entry page using React and TypeScript. It includes examples of passing props, rendering lists, and organizing code for clarity.
                 </p>
             </section>
-            {/* Existing code retained below for reference */}
-            <div style={{ marginTop: "2rem", borderTop: "1px solid #ccc", paddingTop: "1rem" }}>
-                <h3>Original Demo Layout</h3>
-                <div className="row">
-                    <div className="col-4">
-                        <section style={{ marginTop: "2rem" }}>
-                            <UserList />
-                        </section>
-                    </div>
-                    <div className="col-4">
-                        <section style={{ marginTop: "2rem" }}>
-                            <h3>Numbers List (Component)</h3>
-                            <ListOfNumbers numbers={numbers} users={userList} />
-                        </section>
-                    </div>
-                    <div className="col-4">
-                        <section style={{ marginTop: "2rem" }}>
-                            <h3>Numbers List (Direct Render)</h3>
-                            <ul>
-                                {numbers.map((num, idx) => (
-                                    <li key={`number-${idx}`}>{num}</li>
-                                ))}
-                            </ul>
-                        </section>
-                    </div>
-                </div>
-            </div>
             <footer style={{ marginTop: "2rem" }}>
                 <p>
                     &copy; {new Date().getFullYear()} Demo Application. All rights reserved.
