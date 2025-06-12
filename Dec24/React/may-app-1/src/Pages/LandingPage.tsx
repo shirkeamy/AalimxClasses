@@ -15,9 +15,9 @@ const LandingPage: React.FC = () => {
     ];
 
     return (
-        <main className="landing-page" style={{ padding: "2rem" }}>
+        <main className="landing-page" style={{ padding: "2rem", maxWidth: 1000, margin: "0 auto" }}>
             <header>
-                {/* <h1>Welcome to May App 1</h1> */}
+                <h1>Welcome to the Demo Application</h1>
                 <MainHeading />
                 <h2 className="text-success" style={{ marginTop: "1rem" }}>
                     Hello, {userName}!
@@ -25,15 +25,50 @@ const LandingPage: React.FC = () => {
             </header>
             <section style={{ margin: "2rem 0" }}>
                 <p>
-                    This is the entry page of your application. Here you can find an overview of what we offer and how to get started.
+                    This is a generic entry page for a demo React + TypeScript application. It is designed for learning, experimentation, and demonstration purposes only.
                 </p>
-                <p>
-                    Explore the features, learn more about us, and get ready to dive into the application!
-                </p>
+                <ul>
+                    <li>Showcases component-based architecture</li>
+                    <li>Demonstrates use of TypeScript interfaces</li>
+                    <li>Displays reusable UI components</li>
+                    <li>Simple data display and list rendering</li>
+                    <li>Not intended for production or any specific client</li>
+                </ul>
+            </section>
+            <section style={{ margin: "2rem 0" }}>
+                <h3>How to Use This Demo</h3>
+                <ol>
+                    <li>Explore the code and see how components are structured.</li>
+                    <li>Modify the data or UI to experiment with React features.</li>
+                    <li>Use this as a starting point for your own learning projects.</li>
+                </ol>
             </section>
             <hr />
             <section>
-                <h3>User List</h3>
+                <h3>User List (Component Example)</h3>
+                <UserList />
+            </section>
+            <section style={{ marginTop: "2rem" }}>
+                <h3>Numbers List (Component Example)</h3>
+                <ListOfNumbers numbers={numbers} users={userList} />
+            </section>
+            <section style={{ marginTop: "2rem" }}>
+                <h3>Numbers List (Direct Render Example)</h3>
+                <ul>
+                    {numbers.map((num, idx) => (
+                        <li key={`number-${idx}`}>{num}</li>
+                    ))}
+                </ul>
+            </section>
+            <section style={{ marginTop: "2rem", background: "#f9f9f9", padding: "1rem", borderRadius: 8 }}>
+                <h3>About This Page</h3>
+                <p>
+                    This page is a demonstration of how to build a simple, clean, and maintainable entry page using React and TypeScript. It includes examples of passing props, rendering lists, and organizing code for clarity.
+                </p>
+            </section>
+            {/* Existing code retained below for reference */}
+            <div style={{ marginTop: "2rem", borderTop: "1px solid #ccc", paddingTop: "1rem" }}>
+                <h3>Original Demo Layout</h3>
                 <div className="row">
                     <div className="col-4">
                         <section style={{ marginTop: "2rem" }}>
@@ -45,7 +80,6 @@ const LandingPage: React.FC = () => {
                             <h3>Numbers List (Component)</h3>
                             <ListOfNumbers numbers={numbers} users={userList} />
                         </section>
-
                     </div>
                     <div className="col-4">
                         <section style={{ marginTop: "2rem" }}>
@@ -58,11 +92,10 @@ const LandingPage: React.FC = () => {
                         </section>
                     </div>
                 </div>
-            </section>
-
+            </div>
             <footer style={{ marginTop: "2rem" }}>
                 <p>
-                    &copy; {new Date().getFullYear()} May App 1. All rights reserved.
+                    &copy; {new Date().getFullYear()} Demo Application. All rights reserved.
                 </p>
             </footer>
         </main>
