@@ -46,23 +46,6 @@ const Home: React.FC = () => {
           <li>Intended for learning and demonstration only</li>
         </ul>
       </section>
-      {/* Existing code retained below for reference */}
-      <div style={{ marginTop: "2rem", borderTop: "1px solid #ccc", paddingTop: "1rem" }}>
-        <h2>Original Demo Controls</h2>
-        <h3>Counter: {count}</h3>
-        <input
-          type="button"
-          value="Add"
-          className="btn btn-primary btn-sm m-3"
-          onClick={() => { setCount(count + 1) }}
-        />
-        <input
-          type="button"
-          value="Add 1"
-          className="btn btn-primary btn-sm m-3"
-          onClick={() => { setCount1(count1 + 1) }}
-        />
-      </div>
     </div>
   );
 }
