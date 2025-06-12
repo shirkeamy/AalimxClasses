@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import NotFountPage from './Pages/NotFountPage';
 import About from './Pages/About';
 import LandingPage from './Pages/LandingPage';
+import Contact from './Pages/Contact';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="*" element={<NotFountPage />} />
       </Routes>
