@@ -1,12 +1,17 @@
-import React from "react";
+import React, { createContext } from "react";
 import ListOfNumbers from "../Components/ListOfNumbers";
 import MainHeading from "../Components/MainHeading";
 import UserList from "../Components/UserList";
 import { IUserList } from "../Interface/Interfaces";
+import ComponentA from "./PropDrilling/ComponentA";
+
+export const data = createContext("");
+export const data1 = createContext("");
 
 const LandingPage: React.FC = () => {
     // Example user and data for entry page
     const userName: string = "John";
+    const address: string = "Pune, India";
     const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const userList: IUserList[] = [
         { userName: "Alice", userAge: 25, userEmail: "exmaple@example.com" },
@@ -23,6 +28,17 @@ const LandingPage: React.FC = () => {
                     Hello, {userName}!
                 </h2>
             </header>
+            <hr />
+            <h2>Prop Drilling</h2>
+            <div>
+                {
+                    <data.Provider value={userName}>
+                        <data1.Provider value={address}>
+                            <ComponentA />
+                        </data1.Provider>
+                    </data.Provider>
+                }
+            </div>
             <section style={{ margin: "2rem 0" }}>
                 <p>
                     This is a generic entry page for a demo React + TypeScript application. It is designed for learning, experimentation, and demonstration purposes only.
