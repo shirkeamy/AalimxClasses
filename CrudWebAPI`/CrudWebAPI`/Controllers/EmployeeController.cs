@@ -18,7 +18,7 @@ namespace CrudWebAPI_.Controllers
             _dbHelper = dbHelper;
         }
 
-        [HttpGet("Employee")]
+        [HttpGet]
         public ActionResult<IEnumerable<Employee>> GetAllEmployee()
         {
             List<Employee> Employee = new();
@@ -49,7 +49,7 @@ namespace CrudWebAPI_.Controllers
             return Ok(Employee);
         }
 
-        [HttpGet("employee/{id}")]
+        [HttpGet("{id}")]
         public ActionResult<Employee> GetEmployeeById(int id)
         {
             Employee employee = null;
@@ -81,7 +81,7 @@ namespace CrudWebAPI_.Controllers
             return Ok(employee);
         }
 
-        [HttpPost("employee")]
+        [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
             using SqlConnection conn = _dbHelper.GetConnection();
@@ -104,7 +104,7 @@ namespace CrudWebAPI_.Controllers
             return Ok("Employee created successfully.");
         }
 
-        [HttpPut("employee")]
+        [HttpPut]
         public IActionResult UpdateEmployee([FromBody] Employee employee)
         {
             using SqlConnection conn = _dbHelper.GetConnection();
@@ -128,7 +128,7 @@ namespace CrudWebAPI_.Controllers
             return Ok("Employee updated successfully.");
         }
 
-        [HttpDelete("employee/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteEmployee(int id)
         {
             using SqlConnection conn = _dbHelper.GetConnection();
