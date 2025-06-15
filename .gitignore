@@ -2,6 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/CrudWebAPI`/.vs/CrudWebAPI`
+/CrudWebAPI`/.vs
 /CrudWebAPI`/CrudWebAPI`/obj
+/CrudWebAPI`/CrudWebAPI`/bin
 /CrudWebAPI`/CrudWebAPI`/bin/Debug/net8.0
