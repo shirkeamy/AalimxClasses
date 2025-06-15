@@ -2,18 +2,18 @@
 {
     public class Employee
     {
-        public int EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
-        public string EmployeeCode { get; set; }
-        public int GenderId { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string EmailId { get; set; }
-        public string Telephone { get; set; }
-        public string JobTitle { get; set; }
-        public double Salary { get; set; }
-        public string Address { get; set; }
-        public int CityId { get; set; }
-        public int StateId { get; set; }
-        public int CountryId { get; set; }
+        public int EmployeeId { get; set; } // This is primary key and non editable on UI
+        public string EmployeeName { get; set; } // This is editable on UI in Text box
+        public string EmployeeCode { get; set; } // This is editable on UI in Text box
+        public int GenderId { get; set; } // This is editable on UI in readio buttons
+        public DateTime DateOfBirth { get; set; } // This is editable on UI in DatePicker
+        public string EmailId { get; set; } // This is editable on UI in Text box
+        public string Telephone { get; set; } // This is editable on UI in Text box with 10 digit limit
+        public string JobTitle { get; set; } // This is editable on UI in Text box
+        public double Salary { get; set; } // This is editable on UI in Text box with decimal limit
+        public string Address { get; set; } // This is editable on UI in Text area
+        public int CityId { get; set; } // This is editable on UI in dropdown depends on state selection
+        public int StateId { get; set; } // This is editable on UI in dropdown depends on country selection
+        public int CountryId { get; set; } // This is editable on UI in dropdown
     }
 }
