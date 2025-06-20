@@ -19,9 +19,9 @@ namespace CrudWebAPI_.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Employee>> GetAllEmployee()
+        public ActionResult<IEnumerable<Employees>> GetAllEmployee()
         {
-            List<Employee> Employee = new();
+            List<Employees> Employee = new();
             using SqlConnection conn = _dbHelper.GetConnection();
             using SqlCommand cmd = new("SP_GetAllEmployees", conn) { CommandType = CommandType.StoredProcedure };
 
@@ -29,21 +29,21 @@ namespace CrudWebAPI_.Controllers
             using SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Employee.Add(new Employee
+                Employee.Add(new Employees
                 {
                     EmployeeId = (int)reader["EmployeeId"],
                     EmployeeName = reader["EmployeeName"].ToString(),
                     EmployeeCode = reader["EmployeeCode"].ToString(),
-                    GenderId = (int)reader["GenderId"],
+                    Gender = reader["Gender"].ToString(),
                     DateOfBirth = (DateTime)reader["DateOfBirth"],
                     EmailId = reader["EmailId"].ToString(),
                     Telephone = reader["Telephone"].ToString(),
                     JobTitle = reader["JobTitle"].ToString(),
                     Salary = Convert.ToDouble(reader["Salary"]),
                     Address = reader["Address"].ToString(),
-                    CityId = (int)reader["CityId"],
-                    StateId = (int)reader["StateId"],
-                    CountryId = (int)reader["CountryId"]
+                    City = reader["City"].ToString(),
+                    State = reader["State"].ToString(),
+                    Country = reader["Country"].ToString()
                 });
             }
             return Ok(Employee);

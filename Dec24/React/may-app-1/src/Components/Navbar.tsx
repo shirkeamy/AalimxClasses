@@ -20,6 +20,9 @@ const Navbar: React.FC = () => {
                         <li className="nav-item">
                             <a className="nav-link" href="/use-context">Use context hook</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/employees">Employees</a>
+                        </li>
                     </ul>
                 </div>
             </div>

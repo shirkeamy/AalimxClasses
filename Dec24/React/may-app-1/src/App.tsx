@@ -6,6 +6,7 @@ import About from './Pages/About';
 import LandingPage from './Pages/LandingPage';
 import Contact from './Pages/Contact';
 import ParentPage from './Pages/useContextHook/ParentPage';
+import Employees from './Pages/Employee/Employees';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/use-context" element={<ParentPage />} />
+        <Route path="/employees" element={<Employees />} />
 
         <Route path="*" element={<NotFountPage />} />
       </Routes>
