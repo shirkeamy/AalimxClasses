@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GetAllCountries, GetAllGenders, GetCityByStateId, GetStateByCountryId } from "../../Utils/Services/MasterServices";
 import { ICities, ICountries, IEmployee, IEmployees, IGenders, IStates } from "../../Utils/ServiceInterfaces";
 import { GetAllEmployees, GetEmployeeById } from "../../Utils/Services/EmployeeServices";
+import EmployeeForm from "./EmployeeForm";
 
 const Employees: React.FC = () => {
     const [employees, setEmployees] = useState<IEmployees[]>([])
@@ -23,6 +24,7 @@ const Employees: React.FC = () => {
 
     return (
         <>
+            <EmployeeForm />
             <table className="table table-hover table-responsive">
                 <thead>
                     <tr>
