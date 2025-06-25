@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetAllCountries, GetAllGenders, GetCityByStateId, GetStateByCountryId } from "../../Utils/Services/MasterServices";
-import { ICities, ICountries, IEmployee, IEmployees, IGenders, IStates } from "../../Utils/ServiceInterfaces";
+import { IEmployee, IEmployees } from "../../Utils/ServiceInterfaces";
 import { GetAllEmployees, GetEmployeeById } from "../../Utils/Services/EmployeeServices";
 import EmployeeForm from "./EmployeeForm";
 
