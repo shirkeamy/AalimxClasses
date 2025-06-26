@@ -1,14 +1,21 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { IEmployee, IGenders } from "../../Utils/ServiceInterfaces";
-import { GetAllGenders } from "../../Utils/Services/MasterServices";
+import { ICities, ICountries, IEmployee, IGenders, IStates } from "../../Utils/ServiceInterfaces";
+import { GetAllCountries, GetAllGenders, GetCityByStateId, GetStateByCountryId } from "../../Utils/Services/MasterServices";
+import { SaveEmployee } from "../../Utils/Services/EmployeeServices";
 
 const EmployeeForm: React.FC = () => {
     const [genders, setGenders] = useState<IGenders[]>([]);
+    const [countries, setCountries] = useState<ICountries[]>([]);
+    const [states, setStates] = useState<IStates[]>([]);
+    const [cities, setCities] = useState<ICities[]>([]);
     useEffect(() => {
         GetAllGenders().then((data: IGenders[]) => {
             setGenders(data);
         })
-    })
+        GetAllCountries().then((data: ICountries[]) => {
+            setCountries(data)
+        })
+    }, [])
 
     const initialEmployee: IEmployee = {
         employeeId: 0,
@@ -32,9 +39,27 @@ const EmployeeForm: React.FC = () => {
         setEmployee((rest) => (
             {
                 ...rest,
-                [name]: value
+                [name]: type === "radio" ? Number(value) : value
             }
         ))
+    }
+
+    const onCoutryChange = (countryId: number) => {
+        GetStateByCountryId(countryId).then((data: IStates[]) => {
+            setStates(data)
+        })
+    }
+
+    const onStateChange = (stateId: number) => {
+        GetCityByStateId(stateId).then((data: ICities[]) => {
+            setCities(data)
+        })
+    }
+
+    const handleSaveClick = () => {
+        SaveEmployee(employee).then((data)=>{
+            alert(data)
+        })
     }
 
     return (
@@ -209,9 +234,20 @@ const EmployeeForm: React.FC = () => {
                                 id="countryId"
                                 name="countryId"
                                 value={employee.countryId}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    handleChange(e);
+                                    const selectedCountryId = Number(e.target.value);
+                                    onCoutryChange(selectedCountryId);
+                                }}
                             >
                                 <option key={0} value="0">Please Select</option>
+                                {
+                                    countries.map((country: ICountries) => {
+                                        return (
+                                            <option key={`coutry-${country.countryId}`} value={country.countryId}>{country.country}</option>
+                                        )
+                                    })
+                                }
                             </select>
                         </div>
                     </div>
@@ -223,9 +259,20 @@ const EmployeeForm: React.FC = () => {
                                 id="stateId"
                                 name="stateId"
                                 value={employee.stateId}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    handleChange(e);
+                                    const selectedStateId = Number(e.target.value);
+                                    onStateChange(selectedStateId);
+                                }}
                             >
                                 <option key={0} value="0">Please Select</option>
+                                {
+                                    states.map((state: IStates) => {
+                                        return (
+                                            <option key={`state-${state.stateId}`} value={state.stateId}>{state.state}</option>
+                                        )
+                                    })
+                                }
                             </select>
                         </div>
                     </div>
@@ -240,13 +287,25 @@ const EmployeeForm: React.FC = () => {
                                 onChange={handleChange}
                             >
                                 <option key={0} value="0">Please Select</option>
+                                {
+                                    cities.map((city: ICities) => {
+                                        return (
+                                            <option key={`city-${city.cityId}`} value={city.cityId}>{city.city}</option>
+                                        )
+                                    })
+                                }
                             </select>
                         </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12 text-center">
-                        <input type="button" value="Save" className="btn btn-outline-primary" />
+                        <input
+                            type="button"
+                            value="Save"
+                            className="btn btn-outline-primary"
+                            onClick={ handleSaveClick }
+                        />
                     </div>
                 </div>
             </div>

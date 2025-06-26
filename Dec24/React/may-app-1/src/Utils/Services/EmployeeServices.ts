@@ -56,8 +56,12 @@ export const SaveEmployee = async (employee: IEmployee): Promise<string> => {
         {
             throw new Error("Network error");
         }
-        const data = response.json();
-        return data;
+        // const data = response.json();
+        if(response.ok){
+            return "Employee created successfully"
+        }else {
+            return "Employee not created"
+        }
     } catch (error) {
         console.error("Error in Employee API call", error)
         throw error;
@@ -78,8 +82,12 @@ export const UpdateEmployee = async (employee: IEmployee): Promise<string> => {
         {
             throw new Error("Network error");
         }
-        const data = response.json();
-        return data;
+        // const data = response.json();
+        if(response.ok){
+            return "Employee updated successfully"
+        }else {
+            return "Employee not updated"
+        }
     } catch (error) {
         console.error("Error in Employee API call", error)
         throw error;
@@ -100,8 +108,12 @@ export const DeleteEmployee = async (employeeId: number): Promise<string> => {
         {
             throw new Error("Network error");
         }
-        const data = response.json();
-        return data;
+        // const data = response.json();
+        if(response.ok){
+            return "Employee deleted successfully"
+        }else {
+            return "Employee not deleted"
+        }
     } catch (error) {
         console.error("Error in Employee API call", error)
         throw error;
