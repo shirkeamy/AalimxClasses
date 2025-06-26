@@ -64,7 +64,14 @@ const EmployeeForm: React.FC = () => {
                                 id="employeeName"
                                 name="employeeName"
                                 value={employee.employeeName}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setEmployee((rest) => (
+                                        {
+                                            ...rest,
+                                            employeeName: e.target.value
+                                        }
+                                    ))
+                                }}
                             />
                         </div>
                     </div>
