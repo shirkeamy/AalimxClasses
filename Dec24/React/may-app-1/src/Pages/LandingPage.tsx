@@ -4,7 +4,6 @@ import MainHeading from "../Components/MainHeading";
 import UserList from "../Components/UserList";
 import { IUserList } from "../Interface/Interfaces";
 import ComponentA from "./PropDrilling/ComponentA";
-import Employees from "./Employee/Employees";
 
 export const data = createContext("");
 export const data1 = createContext("");
@@ -29,7 +28,7 @@ const LandingPage: React.FC = () => {
                     Hello, {userName}!
                 </h2>
             </header>
-            <Employees />
+            {/* <Employees /> */}
             <hr />
             <h2>Prop Drilling</h2>
             <div>
