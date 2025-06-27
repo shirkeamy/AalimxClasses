@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import { IEmployee, IEmployees } from "../../Utils/ServiceInterfaces";
-import { GetAllEmployees, GetEmployeeById } from "../../Utils/Services/EmployeeServices";
+import { DeleteEmployee, GetAllEmployees, GetEmployeeById } from "../../Utils/Services/EmployeeServices";
 import EmployeeForm from "./EmployeeForm";
 
 const Employees: React.FC = () => {
     const [employees, setEmployees] = useState<IEmployees[]>([])
+    const [employeeId, setEmployeeId] = useState<number>(0)
+    const [isSaved, setIsSaved] = useState<boolean>(false)
     useEffect(() => {
         GetAllEmployees()
             .then((data: IEmployees[]) => {
                 setEmployees(data);
+                setIsSaved(false);
+                setEmployeeId(0);
             })
             .catch((error) => {
                 console.log(error)
             })
-    }, [])
+    }, [isSaved])
 
-    const handleOnEdit = (employeeId: number) => {
-        GetEmployeeById(employeeId).then((data: IEmployee) => {
-            console.log(data);
+    const onDeleteClick = (employeeId: number) => {
+        DeleteEmployee(employeeId).then((data: string) => {
+            alert(data);
+            setIsSaved(true);
+        }).catch((error) => {
+            alert(error);
         })
     }
 
     return (
         <>
-            <EmployeeForm />
+            <EmployeeForm employeeId={employeeId} setIsSaved={setIsSaved} />
             <table className="table table-hover table-responsive">
                 <thead>
                     <tr>
@@ -60,7 +67,13 @@ const Employees: React.FC = () => {
                                             type="button"
                                             value="Edit"
                                             className="btn btn-sm btn-outline-primary"
-                                            onClick={() => { handleOnEdit(employee.employeeId) }}
+                                            onClick={() => { setEmployeeId(employee.employeeId) }}
+                                        />
+                                        <input
+                                            type="button"
+                                            value="Delete"
+                                            className="btn btn-sm btn-outline-danger"
+                                            onClick={() => { onDeleteClick(employee.employeeId) }}
                                         />
                                     </td>
                                 </tr>

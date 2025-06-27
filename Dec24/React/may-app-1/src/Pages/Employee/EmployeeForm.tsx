@@ -1,9 +1,15 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { ICities, ICountries, IEmployee, IGenders, IStates } from "../../Utils/ServiceInterfaces";
 import { GetAllCountries, GetAllGenders, GetCityByStateId, GetStateByCountryId } from "../../Utils/Services/MasterServices";
-import { SaveEmployee } from "../../Utils/Services/EmployeeServices";
+import { GetEmployeeById, SaveEmployee, UpdateEmployee } from "../../Utils/Services/EmployeeServices";
 
-const EmployeeForm: React.FC = () => {
+interface IEmployeeFormProps {
+    employeeId: number;
+    setIsSaved: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) => {
+    const { employeeId, setIsSaved }: IEmployeeFormProps = props;
     const [genders, setGenders] = useState<IGenders[]>([]);
     const [countries, setCountries] = useState<ICountries[]>([]);
     const [states, setStates] = useState<IStates[]>([]);
@@ -57,10 +63,33 @@ const EmployeeForm: React.FC = () => {
     }
 
     const handleSaveClick = () => {
-        SaveEmployee(employee).then((data)=>{
-            alert(data)
-        })
+        if (employee.employeeId > 0) {
+            UpdateEmployee(employee).then((data) => {
+                alert(data)
+                setIsSaved(true);
+                setEmployee(initialEmployee);
+            })
+        }
+        else {
+            SaveEmployee(employee).then((data) => {
+                alert(data)
+                setIsSaved(true);
+                setEmployee(initialEmployee);
+            })
+        }
     }
+
+
+    useEffect(() => {
+        if (employeeId > 0) {
+            GetEmployeeById(employeeId).then((data: IEmployee) => {
+                setEmployee(data);
+                onCoutryChange(data.countryId);
+                onStateChange(data.stateId);
+            })
+        }
+    }, [employeeId])
+
 
     return (
         <div className="row m-5">
@@ -147,7 +176,7 @@ const EmployeeForm: React.FC = () => {
                                 className="form-control"
                                 id="dateOfBirth"
                                 name="dateOfBirth"
-                                value={employee.dateOfBirth}
+                                value={employee.dateOfBirth ? employee.dateOfBirth.split("T")[0] : ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -304,7 +333,7 @@ const EmployeeForm: React.FC = () => {
                             type="button"
                             value="Save"
                             className="btn btn-outline-primary"
-                            onClick={ handleSaveClick }
+                            onClick={handleSaveClick}
                         />
                     </div>
                 </div>
