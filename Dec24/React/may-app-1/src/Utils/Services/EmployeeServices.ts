@@ -63,8 +63,7 @@ export const SaveEmployee = async (employee: IEmployee): Promise<string> => {
             return "Employee not created"
         }
     } catch (error) {
-        console.error("Error in Employee API call", error)
-        throw error;
+        return `There has been a problem with your save operation: ${error}`;
     }
 }
 
@@ -89,8 +88,7 @@ export const UpdateEmployee = async (employee: IEmployee): Promise<string> => {
             return "Employee not updated"
         }
     } catch (error) {
-        console.error("Error in Employee API call", error)
-        throw error;
+        return `There has been a problem with your update operation: ${error}`;
     }
 }
 
@@ -115,7 +113,6 @@ export const DeleteEmployee = async (employeeId: number): Promise<string> => {
             return "Employee not deleted"
         }
     } catch (error) {
-        console.error("Error in Employee API call", error)
-        throw error;
+        return `There has been a problem with your delete operation: ${error}`;
     }
 }
