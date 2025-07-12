@@ -1,3 +1,6 @@
+// app.ts
+// This is the main entry point for the TypeScript application.
+
 let welcome: string = "welcome to TypeScript from console";
 console.log(welcome);
 
@@ -12,3 +15,5 @@ function addition(num1: number, num2: number) {
 console.log(addition(50, 20));
 console.log(addition(50, 50));
 //addition("10", "20");
+
+console.log(addition(10, 20));

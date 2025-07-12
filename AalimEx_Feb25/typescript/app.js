@@ -9,3 +9,4 @@ function addition(num1, num2) {
 console.log(addition(50, 20));
 console.log(addition(50, 50));
 //addition("10", "20");
+console.log(addition(10, 20));

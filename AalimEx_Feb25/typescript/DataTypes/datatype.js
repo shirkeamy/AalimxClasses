@@ -1,3 +1,8 @@
+// DataTypes/datatype.ts
+// TypeScript Data Types Example
+// This file demonstrates various data types in TypeScript including let/const variables, arrays, objects
+// and tuples.
+
 //let const
 var number1;
 number1 = 10;
@@ -32,6 +37,35 @@ var userDetails = {
     name: "John Doe",
     age: 30,
     isActive: true,
-    dateOfBirth: new Date("1990-01-01")
+    dateOfBirth: new Date("1990-01-01"),
+    salary: 50000,
+    email: null
 };
 console.log(userDetails);
+var userDetails2 = {
+    name: "Jane Smith",
+    age: 25,
+    isActive: false,
+    dateOfBirth: new Date("1995-05-15"),
+    salary: 60000,
+    email: "exmaple@example.com"
+};
+console.log(userDetails2);
+var userDetails3 = {
+    name: "Jane Smith",
+    age: 25,
+    isActive: false,
+    dateOfBirth: new Date("1995-05-15"),
+    email: "exmaple@example.com"
+};
+console.log(userDetails3);
+// tuple
+var colors = [255, 0, 0]; // RGB color
+var user = ["Alice", 30, true, new Date()]; // Name, Age, IsActive
+console.log(colors);
+console.log(user);
+//user = [10, "", false, new Date()]; // Changing the tuple values
+
+// tsc -w -outFile .\dist\main.js .\DataTypes\datatype.ts .\app.ts
+// This will compile the TypeScript files and output to a single JavaScript file in the dist directory.
+// Note: The above code is a TypeScript example demonstrating various data types, including let/const variables, arrays, objects, and tuples.
