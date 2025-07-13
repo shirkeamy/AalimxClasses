@@ -1,3 +1,5 @@
+// app.ts
+// This is the main entry point for the TypeScript application.
 var welcome = "welcome to TypeScript from console";
 console.log(welcome);
 var heading = document.createElement("h1");
