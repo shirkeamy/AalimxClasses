@@ -12,6 +12,68 @@ console.log(addition(50, 20));
 console.log(addition(50, 50));
 //addition("10", "20");
 console.log(addition(10, 20));
+var userRole = "admin"; // string type
+if (userRole === "admin") {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome Admin";
+    document.body.appendChild(userHeading);
+}
+var newUserRole = "usedfgsr"; // string type
+if (newUserRole === "user") {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome User";
+    document.body.appendChild(userHeading);
+}
+else {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome Guest";
+    document.body.appendChild(userHeading);
+}
+newUserRole = "admin";
+if (newUserRole === "user") {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome User";
+    document.body.appendChild(userHeading);
+}
+else if (newUserRole === "admin") {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome Admin from nested if";
+    document.body.appendChild(userHeading);
+}
+else if (newUserRole === "student") {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "Welcome Student";
+    document.body.appendChild(userHeading);
+}
+else {
+    var userHeading = document.createElement("h1");
+    userHeading.textContent = "user role is not defined";
+    userHeading.style.color = "red";
+    document.body.appendChild(userHeading);
+}
+var xyz = false;
+xyz === true ? console.log("xyz is true") : console.log("xyz is false");
+var anyVar;
+anyVar = "Any string";
+console.log(anyVar);
+anyVar = 10;
+console.log(anyVar);
+anyVar = new Date();
+console.log(anyVar);
+anyVar = true;
+console.log(anyVar);
+var anyObj;
+anyObj = {
+    id: 1,
+    name: "Amol Shirke",
+    isActive: true,
+    createdAt: new Date()
+};
+console.log(anyObj);
+console.log("anyObj from any data type:");
+console.log(anyObj.asdfasdf);
+anyObj = 10;
+console.log(anyObj);
 // DataTypes/datatype.ts
 // TypeScript Data Types Example
 // This file demonstrates various data types in TypeScript including let/const variables, arrays, objects
