@@ -40,5 +40,6 @@ if(newUserRole === "user") {
 
 let xyz: boolean = false;
 
-xyz === true ? console.log("xyz is true") : console.log("xyz is false");
+// xyz === true ? console.log("xyz is true") : console.log("xyz is false");
+xyz ? console.log("xyz is true") : console.log("xyz is false");
 

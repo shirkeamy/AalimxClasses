@@ -12,6 +12,23 @@ console.log(addition(50, 20));
 console.log(addition(50, 50));
 //addition("10", "20");
 console.log(addition(10, 20));
+var array = ["apple", "banana", "cherry"];
+for (var index = 0; index < array.length; index++) {
+    var element = array[index];
+    console.log("Element at index ".concat(index, " is ").concat(element));
+}
+for (var index = 0; index < 10; index++) {
+    console.log("NUmbers - ".concat(index + 1));
+}
+for (var index in array) {
+    var element = array[index];
+    console.log("Element at index from for in loop ".concat(index, " is ").concat(element));
+}
+var usersList = ["Alice", "Bob", "Charlie"];
+usersList.map(function (user, i) {
+    // This is a placeholder for any operation you want to perform on each user
+    console.log("User from map fn ".concat(i, ": ").concat(user));
+});
 var userRole = "admin"; // string type
 if (userRole === "admin") {
     var userHeading = document.createElement("h1");
@@ -52,7 +69,27 @@ else {
     document.body.appendChild(userHeading);
 }
 var xyz = false;
-xyz === true ? console.log("xyz is true") : console.log("xyz is false");
+// xyz === true ? console.log("xyz is true") : console.log("xyz is false");
+xyz ? console.log("xyz is true") : console.log("xyz is false");
+var grade = "E";
+var gradeHeading = document.createElement("h1");
+switch (grade) {
+    case "A":
+        gradeHeading.textContent = "Your grade is: " + grade + " - Excellent";
+        break;
+    case "B":
+        gradeHeading.textContent = "Your grade is: " + grade + " - Good";
+        break;
+    case "C":
+        gradeHeading.textContent = "Your grade is: " + grade + " - Avevrage";
+        break;
+    case "D":
+        gradeHeading.textContent = "Your grade is: " + grade + " - Poor";
+        break;
+    default:
+        gradeHeading.textContent = "Your grade is: " + grade + " - Student is failed";
+}
+document.body.appendChild(gradeHeading);
 var anyVar;
 anyVar = "Any string";
 console.log(anyVar);
