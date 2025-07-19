@@ -71,6 +71,23 @@ else {
 var xyz = false;
 // xyz === true ? console.log("xyz is true") : console.log("xyz is false");
 xyz ? console.log("xyz is true") : console.log("xyz is false");
+// map - array
+// map - value, index, array
+var users = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 35 }
+];
+var userList = document.createElement("ul");
+users.map(function (user, index) {
+    var listItem = document.createElement("li");
+    listItem.textContent = "User ".concat(index + 1, ": ").concat(user.name, ", Age: ").concat(user.age);
+    userList.appendChild(listItem);
+});
+document.body.appendChild(userList);
+users.map(function (user, index) {
+    console.log("User from map fn map.ts ".concat(index, ": ").concat(user.name, ", Age: ").concat(user.age));
+});
 var grade = "E";
 var gradeHeading = document.createElement("h1");
 switch (grade) {
@@ -90,6 +107,39 @@ switch (grade) {
         gradeHeading.textContent = "Your grade is: " + grade + " - Student is failed";
 }
 document.body.appendChild(gradeHeading);
+// for (let i = 0; i < 10; i++) {
+//     let numberHeading = document.createElement("h2");
+//     numberHeading.textContent = `Number from for ${i + 1}`;
+//     document.body.appendChild(numberHeading);
+// }
+var i = 11;
+while (i <= 20) {
+    var numberHeading = document.createElement("h2");
+    numberHeading.textContent = "Number from while ".concat(i);
+    document.body.appendChild(numberHeading);
+    i++;
+}
+var numberToFact = 3;
+var factorial = 1;
+// fact = fact * numberToFact  --- factorial *= numberToFact;
+// numberToFact = numberToFact - 1 --- numberToFact--
+while (numberToFact >= 1) {
+    factorial = factorial * numberToFact;
+    numberToFact--;
+}
+var factorialParagraph = document.createElement("p");
+factorialParagraph.textContent = "Factorial of 5 is ".concat(factorial);
+document.body.appendChild(factorialParagraph);
+// do {
+//     // code
+// }while(condition)
+var n = 0;
+do {
+    var numberHeading = document.createElement("h2");
+    numberHeading.textContent = "Number from do while ".concat(n + 1);
+    document.body.appendChild(numberHeading);
+    n++;
+} while (n < 10);
 var anyVar;
 anyVar = "Any string";
 console.log(anyVar);
