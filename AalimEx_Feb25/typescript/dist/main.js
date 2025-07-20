@@ -268,3 +268,38 @@ else if (userinfo.role === UserRoles.GUEST) {
 else if (userinfo.role === UserRoles.USER) {
     console.log("User is a regular user:", userinfo);
 }
+function Addition(a, b) {
+    return a + b;
+}
+var additionResult = Addition(5, 10);
+console.log("Addition Result: ".concat(additionResult)); // template literals `string ${variable}`
+// () => {}
+// when we have call back then we use arrow fn
+(function () {
+    console.log("This is an arrow function");
+});
+var add = function (a, b) {
+    return a + b;
+};
+var addResult = add(10, 20);
+console.log("Arrow Function Addition Result: ".concat(addResult));
+// Function with default parameters
+function discountPrice(price, discount) {
+    if (discount === void 0) { discount = 10; }
+    var dics = (price * discount) / 100;
+    return price - dics;
+}
+var discountedPrice = discountPrice(100, 15);
+console.log("Discounted Price: ".concat(discountedPrice));
+var defaultDiscountedPrice = discountPrice(100);
+console.log("Default Discounted Price: ".concat(defaultDiscountedPrice));
+function multiplication(a, b, c) {
+    if (c === undefined) {
+        return a * b;
+    }
+    return a * b * c;
+}
+var multiplicationResult = multiplication(2, 3);
+console.log("Multiplication Result: ".concat(multiplicationResult)); // 6
+var multiplicationWithThird = multiplication(2, 3, 4);
+console.log("Multiplication with third parameter Result: ".concat(multiplicationWithThird)); //
