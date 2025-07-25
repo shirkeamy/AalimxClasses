@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <h1>Welcome, {userName}</h1>
+        <h1 className='text-danger'>Welcome, {userName}</h1>
         <ul key={"user-list"}>
           {
             users.map((user: string, index: number) => {
