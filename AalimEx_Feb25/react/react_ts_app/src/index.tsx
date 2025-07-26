@@ -13,7 +13,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <div className="container-fluid">
+      <App />
+    </div>
   </React.StrictMode>
 );
 
