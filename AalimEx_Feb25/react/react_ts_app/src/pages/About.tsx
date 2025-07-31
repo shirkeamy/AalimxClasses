@@ -1,6 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
+import InputWrapper from "../components/InputWrapper";
 
 function About() {
+
+    const [userName, setUserName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
     return (
         <>
             <div className="row">
@@ -21,6 +26,34 @@ function About() {
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita veniam accusamus minima voluptatibus ducimus excepturi.
                             </p>
+                        </div>
+                    </div>
+                    <h3>user Name: {userName}</h3>
+                    <div className="row">
+                        <div className="col-6">
+                            <InputWrapper
+                                LabelText={"User Name"}
+                                Id={"txtUserName"}
+                                Type={"text"}
+                                Name={"userName"}
+                                Value={userName}
+                                OnChange={(event) => {
+                                    const { value } = event.target;
+                                    setUserName(value)
+                                }}
+                            />
+
+                            <label htmlFor="txtPassword">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                id="txtPassword"
+                                className="form-control"
+                                value={password}
+                                onChange={(e) => { 
+                                    setPassword(e.target.value)
+                                }} />
+
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import InputWrapper from "../components/InputWrapper";
 
 class Home extends React.Component {
 
@@ -10,6 +11,7 @@ class Home extends React.Component {
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, eligendi. Facere ratione quod culpa incidunt tenetur dolore, commodi, sunt in excepturi doloremque dignissimos accusamus optio officia quia labore nam laudantium, ipsum consequatur molestias. Necessitatibus laboriosam assumenda eius quod voluptate a, saepe animi rerum praesentium! Harum ipsum dolorem odio saepe ullam.
                 </p>
+                
             </>
         )
     }
