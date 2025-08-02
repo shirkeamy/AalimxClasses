@@ -1,11 +1,19 @@
-import React from "react";
-import { data, data1 } from "../LandingPage";
+import React, { useContext } from "react";
+import { data, data1, userDetails } from "../LandingPage";
+import { IUserDetails } from "../../Utils/Interfaces";
 interface IComponentCProps {
     Count: number;
 }
 
 const ComponentC: React.FC<IComponentCProps> = (props: IComponentCProps) => {
     const { Count }: IComponentCProps = props;
+
+    const address = useContext(data)
+    const userName1 = useContext(data1)
+    const user = useContext(userDetails)
+
+    console.log(user);
+
     return (
         <>
 
@@ -15,27 +23,11 @@ const ComponentC: React.FC<IComponentCProps> = (props: IComponentCProps) => {
             <h3>
                 Count from Component C - {Count}
             </h3>
-            <data.Consumer>
-                {
-                    (user) => {
-                        return (
 
-                            <data1.Consumer>
-                                {
-                                    (address) => {
-                                        return (
-                                            <>
-                                                <h3>User name in C component - {user}</h3>
-                                                <h3>Address name in C component - {address}</h3>
-                                            </>
-                                        )
-                                    }
-                                }
-                            </data1.Consumer>
-                        )
-                    }
-                }
-            </data.Consumer>
+            <h2>User Name is {userName1} and address is {address}</h2>
+            <h3>Object = User Name is {user.userName} and age is {user.age}</h3>
+
+            
 
         </>
     )

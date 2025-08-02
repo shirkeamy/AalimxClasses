@@ -1,12 +1,21 @@
 import React, { createContext, useState } from "react";
 import ComponentA from "./PropDrilling/ComponentA";
+import { emptyUser, IUserDetails } from "../Utils/Interfaces";
+
+
+
 
 export const data = createContext("") // 1. Create context
 export const data1 = createContext("") // 1. Create context
+export const userDetails = createContext(emptyUser) // 1. Create context
 
 const LandingPage: React.FC = () => {
     const [count, setCount] = useState<number>(0); // Create state
     const [useName, setUserName] = useState<string>("Amol"); // Create state
+    const user: IUserDetails = {
+        userName: "Peter",
+        age: 10
+    }
     // count = 123;
     // setCount(123)
     return (
@@ -18,7 +27,9 @@ const LandingPage: React.FC = () => {
                     <h3>Count is {count}</h3>
                     <data.Provider value={useName} > // 2. Provider
                         <data1.Provider value="Pune" > // 2. Provider
-                            <ComponentA Count={count} />
+                            <userDetails.Provider value={user}>
+                                <ComponentA Count={count} />
+                            </userDetails.Provider>
                         </data1.Provider>
                     </data.Provider>
                     <button type="button" onClick={() => { setCount(count + 1) }}>Increment</button>
