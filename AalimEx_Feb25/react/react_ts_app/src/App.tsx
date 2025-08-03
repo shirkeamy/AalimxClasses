@@ -5,6 +5,7 @@ import Contact from './pages/Contact';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
+import UseEffectHooks from './pages/UseEffectHooks';
 
 function App() {
   let userName: string = "Peter";
@@ -17,6 +18,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/hooks' element={<UseEffectHooks />} />
         
         
         <Route path='*' element={<PageNotFound />} />
