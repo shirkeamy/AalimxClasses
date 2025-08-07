@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
 import UseEffectHooks from './pages/UseEffectHooks';
+import UseCallBackHook from './pages/UseCallBackHook';
 
 function App() {
   let userName: string = "Peter";
@@ -19,6 +20,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/hooks' element={<UseEffectHooks />} />
+        <Route path='/callback-hooks' element={<UseCallBackHook />} />
         
         
         <Route path='*' element={<PageNotFound />} />
