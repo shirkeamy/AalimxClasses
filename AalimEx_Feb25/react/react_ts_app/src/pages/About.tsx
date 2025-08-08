@@ -1,10 +1,31 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import InputWrapper from "../components/InputWrapper";
+import useFetch, { useGet } from "../hooks/useFetch";
 
 function About() {
 
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
+    // const [todo, setTodo] = useState<any>(null);
+
+    // useEffect(()=>{
+    //     fetch("https://jsonplaceholder.typicode.com/todos")
+    //         .then((data)=>{
+    //             console.log(data.json())
+    //             setTodo(data)
+    //         })
+    //         .catch((err)=>{
+    //             console.log("error while fetching data", err)
+    //         })
+    // },[])
+
+    // console.log("todo list", todo);
+
+    const [todo] = useFetch("https://jsonplaceholder.typicode.com/todos")
+    console.log("todo data", todo)
+    const [getTodo] = useGet("https://jsonplaceholder.typicode.com/todos")
+    console.log("getTodo data", getTodo)
 
     return (
         <>
@@ -50,7 +71,7 @@ function About() {
                                 id="txtPassword"
                                 className="form-control"
                                 value={password}
-                                onChange={(e) => { 
+                                onChange={(e) => {
                                     setPassword(e.target.value)
                                 }} />
 
