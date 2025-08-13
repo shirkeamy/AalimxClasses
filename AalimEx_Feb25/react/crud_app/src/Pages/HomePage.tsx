@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { GenderSevice } from "../Utils/Services/MasterServices";
+import { IGenders } from "../Utils/Interfaces/MasterInterfaces";
 
 const HomePage: React.FC = () => {
+
+    useEffect(()=>{
+        GenderSevice().then((data: IGenders[])=>{
+            console.log("genders from API", data);
+        }).catch((error: Error)=>{
+            console.error("Error fetching", error);
+        })
+    }, [])
 
     return (
         <div className="container mt-5">
@@ -22,7 +32,7 @@ const HomePage: React.FC = () => {
                                         <li className="list-group-item"><i className="bi bi-pencil-square text-warning"></i> Edit existing records</li>
                                         <li className="list-group-item"><i className="bi bi-trash text-danger"></i> Delete records</li>
                                     </ul>
-                                    <a href="/records" className="btn btn-success btn-lg mt-2 shadow">
+                                    <a href="/" className="btn btn-success btn-lg mt-2 shadow">
                                         <i className="bi bi-arrow-right-circle"></i> Go to Records
                                     </a>
                                 </div>
