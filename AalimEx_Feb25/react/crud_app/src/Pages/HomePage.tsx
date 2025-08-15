@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { GenderSevice } from "../Utils/Services/MasterServices";
-import { IGenders } from "../Utils/Interfaces/MasterInterfaces";
+import { GenderSevice, GetAllCoutries, GetAllStatesByCountry } from "../Utils/Services/MasterServices";
+import { ICountries, IGenders, IStates } from "../Utils/Interfaces/MasterInterfaces";
 
 const HomePage: React.FC = () => {
 
@@ -10,6 +10,21 @@ const HomePage: React.FC = () => {
         }).catch((error: Error)=>{
             console.error("Error fetching", error);
         })
+
+        GetAllCoutries().then((data: ICountries[])=>{
+            console.log("Country from API", data);
+        }).catch((error: Error)=>{
+            console.error("Error in fetching Country", error);
+        })
+
+        GetAllStatesByCountry(120).then((data: IStates[])=>{
+            console.log("State from API", data);
+        }).catch((error: Error)=>{
+            console.error("Error in fetching State", error);
+        })
+
+
+
     }, [])
 
     return (

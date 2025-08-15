@@ -4,6 +4,7 @@ import HomePage from './Pages/HomePage';
 import PageNotFound from './Pages/PageNotFound';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
+import EmployeeList from './Pages/Employees/EmployeeList';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/employee' element={<EmployeeList />} />
         
         <Route path='*' element={<PageNotFound />} />
 
