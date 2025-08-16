@@ -1,4 +1,4 @@
-import { ICountries, IGenders, IStates } from "../Interfaces/MasterInterfaces";
+import { ICities, ICountries, IGenders, IStates } from "../Interfaces/MasterInterfaces";
 
 export const GenderSevice = async (): Promise<IGenders[]> => {
 
@@ -52,6 +52,23 @@ export const GetAllStatesByCountry = async (countryId: number): Promise<IStates[
     }
 
     const data: IStates[] = await respose.json();
+
+    return data;
+}
+
+export const GetAllCitiesByState = async (stateId: number): Promise<ICities[]> => {
+    const respose = await fetch(`https://localhost:7150/api/Master/cities/${stateId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if(!respose.ok){
+        throw new Error("Failed to fetch");
+    }
+
+    const data: ICities[] = await respose.json();
 
     return data;
 }
