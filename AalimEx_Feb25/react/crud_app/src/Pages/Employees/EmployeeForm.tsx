@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { IGenders, ICountries, IStates, ICities } from "../../Utils/Interfaces/MasterInterfaces";
 import { GenderSevice, GetAllCitiesByState, GetAllCoutries, GetAllStatesByCountry } from "../../Utils/Services/MasterServices";
+import { IEmployee } from "../../Utils/Interfaces/EmployeeInterfaces";
+import { PostEmployee } from "../../Utils/Services/EmployeeSevices";
 
 const EmployeeForm: React.FC = () => {
 
@@ -41,6 +43,46 @@ const EmployeeForm: React.FC = () => {
         })
     }
 
+    const initialEmployee: IEmployee = {
+        employeeId: 0,
+        employeeName: "",
+        employeeCode: "",
+        genderId: 0,
+        dateOfBirth: new Date(),
+        emailId: "",
+        telephone: "",
+        jobTitle: "",
+        salary: 0,
+        address: "",
+        cityId: 0,
+        stateId: 0,
+        countryId: 0
+    }
+
+    const [employee, setEmployee] = useState<IEmployee>(initialEmployee)
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { value, name, type } = e.target;
+        setEmployee((prev)=>({
+            ...prev,
+            [name]:
+                type === "radio" ? Number(value) :
+                type === "date" ? new Date(value) :
+                value
+        }))
+    }
+
+    const onSaveClick = () => {
+        PostEmployee(employee).then((data: string)=>{
+            console.log("employee", data);
+            alert(data);
+            setEmployee(initialEmployee);
+        }).catch((error: Error) => {
+            console.error("Error in saving employee", error);
+            alert(error.message);
+        })
+    }
+
     return (
         <>
             <div className="row">
@@ -53,6 +95,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="employeeId"
+                                name="employeeId"
+                                value={employee.employeeId}
+                                onChange={handleChange}
                                 disabled
                             />
                         </div>
@@ -62,6 +107,18 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="employeeName"
+                                name="employeeName"
+                                value={employee.employeeName}
+                                // onChange={(e)=>{
+                                //     // const v = e.target.value;
+                                //     // const id = e.target.id;
+                                //     const { value } = e.target;
+                                //     setEmployee({
+                                //         ...employee,
+                                //         employeeName: value
+                                //     })
+                                // }}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="col-4">
@@ -70,6 +127,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="employeeCode"
+                                name="employeeCode"
+                                value={employee.employeeCode}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -86,6 +146,9 @@ const EmployeeForm: React.FC = () => {
                                                     type="radio"
                                                     name="genderId"
                                                     id={`gender-${gender.genderId}`}
+                                                    value={gender.genderId}
+                                                    checked={employee.genderId === gender.genderId}
+                                                    onChange={handleChange}
                                                 />
                                                 <label className="form-check-label" htmlFor={`gender-${gender.genderId}`}>
                                                     {gender.gender}
@@ -103,6 +166,9 @@ const EmployeeForm: React.FC = () => {
                                 type="date"
                                 className="form-control"
                                 id="dateOfBirth"
+                                name="dateOfBirth"
+                                value={employee.dateOfBirth.toISOString().split('T')[0]}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="col-4">
@@ -111,6 +177,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="emailId"
+                                name="emailId"
+                                value={employee.emailId}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -121,6 +190,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="telephone"
+                                name="telephone"
+                                value={employee.telephone}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="col-4">
@@ -129,6 +201,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="jobTitle"
+                                name="jobTitle"
+                                value={employee.jobTitle}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="col-4">
@@ -137,6 +212,9 @@ const EmployeeForm: React.FC = () => {
                                 type="text"
                                 className="form-control"
                                 id="salary"
+                                name="salary"
+                                value={employee.salary}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -149,9 +227,12 @@ const EmployeeForm: React.FC = () => {
                                 id="address"
                             /> */}
                             <textarea
-                                name=""
+                                name="address"
                                 className="form-control"
-                                id="address">
+                                id="address"
+                                value={employee.address}
+                                onChange={handleChange}
+                            >
                             </textarea>
                         </div>
 
@@ -160,9 +241,11 @@ const EmployeeForm: React.FC = () => {
                         <div className="col-4">
                             <label htmlFor="countryId">Country</label>
                             <select name="countryId" id="countryId" className="form-select"
+                                value={employee.countryId}
                                 onChange={(e) => {
                                     const { value } = e.target;
                                     onCountryChange(parseInt(value));
+                                    handleChange(e)
                                 }}
                             >
                                 <option value="0">Please Select</option>
@@ -178,9 +261,11 @@ const EmployeeForm: React.FC = () => {
                         <div className="col-4">
                             <label htmlFor="stateId">State</label>
                             <select name="stateId" id="stateId" className="form-select"
+                                value={employee.stateId}
                                 onChange={(e) => {
                                     const { value } = e.target;
                                     onStateChange(parseInt(value));
+                                    handleChange(e)
                                 }}
                             >
                                 <option value="0">Please Select</option>
@@ -195,7 +280,10 @@ const EmployeeForm: React.FC = () => {
                         </div>
                         <div className="col-4">
                             <label htmlFor="cityId">City</label>
-                            <select name="cityId" id="stateId" className="form-select">
+                            <select name="cityId" id="stateId" className="form-select"
+                                value={employee.cityId}
+                                onChange={handleChange}
+                            >
                                 <option value="0">Please Select</option>
                                 {cities.map((city: ICities) => {
                                     return (
@@ -210,7 +298,9 @@ const EmployeeForm: React.FC = () => {
                     <hr />
                     <div className="row">
                         <div className="col-12 text-center">
-                            <input type="button" value="Save" className="btn btn-primary" />
+                            <input type="button" value="Save" className="btn btn-primary"
+                                onClick={onSaveClick}
+                            />
                         </div>
                     </div>
                 </div>
