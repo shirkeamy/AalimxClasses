@@ -18,12 +18,22 @@ const HomePage: React.FC = () => {
                                         Welcome to the <strong>CRUD Application</strong>! You can create, read, update, and delete records easily.
                                     </p>
                                     <ul className="list-group list-group-flush mb-3">
-                                        <li className="list-group-item"><i className="bi bi-plus-circle text-success"></i> Add new records</li>
-                                        <li className="list-group-item"><i className="bi bi-list-ul text-primary"></i> View all records</li>
+                                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                <i className="bi bi-plus-circle text-success"></i> Add new records
+                                            </span>
+                                            <span className="badge bg-success rounded-pill">Done</span>
+                                        </li>
+                                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                <i className="bi bi-list-ul text-primary"></i> View all records
+                                            </span>
+                                            <span className="badge bg-success rounded-pill">Done</span>
+                                        </li>
                                         <li className="list-group-item"><i className="bi bi-pencil-square text-warning"></i> Edit existing records</li>
                                         <li className="list-group-item"><i className="bi bi-trash text-danger"></i> Delete records</li>
                                     </ul>
-                                    <a href="/" className="btn btn-success btn-lg mt-2 shadow">
+                                    <a href="/employee" className="btn btn-success btn-lg mt-2 shadow">
                                         <i className="bi bi-arrow-right-circle"></i> Go to Records
                                     </a>
                                 </div>
