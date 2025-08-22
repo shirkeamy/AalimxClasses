@@ -44,9 +44,9 @@ const EmployeeForm: React.FC = () => {
     return (
         <>
             <div className="row">
-                <div className="col-3"></div>
-                <div className="col-6">
-                    <div className="row">
+                <div className="col-2"></div>
+                <div className="col-8">
+                    <div className="row mb-3">
                         <div className="col-4">
                             <label htmlFor="employeeId">Employee Id</label>
                             <input
@@ -73,14 +73,14 @@ const EmployeeForm: React.FC = () => {
                             />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row mb-3">
                         <div className="col-4">
                             <label htmlFor="radGender">Gender</label>
                             <div>
                                 {
                                     genders.map((gender: IGenders) => {
                                         return (
-                                            <div className="form-check" key={`gender-rad-${gender.genderId}`}>
+                                            <div className="form-check form-check-inline" key={`gender-rad-${gender.genderId}`}>
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
@@ -114,7 +114,7 @@ const EmployeeForm: React.FC = () => {
                             />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row mb-3">
                         <div className="col-4">
                             <label htmlFor="telephone">Telephone</label>
                             <input
@@ -140,23 +140,28 @@ const EmployeeForm: React.FC = () => {
                             />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-6">
+                    <div className="row mb-3">
+                        <div className="col-12">
                             <label htmlFor="address">Address</label>
-                            <input
+                            {/* <input
                                 type="text"
                                 className="form-control"
                                 id="address"
-                            />
+                            /> */}
+                            <textarea
+                                name=""
+                                className="form-control"
+                                id="address">
+                            </textarea>
                         </div>
 
                     </div>
-                    <div className="row">
+                    <div className="row mb-3">
                         <div className="col-4">
                             <label htmlFor="countryId">Country</label>
                             <select name="countryId" id="countryId" className="form-select"
                                 onChange={(e) => {
-                                    const {value} = e.target;
+                                    const { value } = e.target;
                                     onCountryChange(parseInt(value));
                                 }}
                             >
@@ -173,8 +178,8 @@ const EmployeeForm: React.FC = () => {
                         <div className="col-4">
                             <label htmlFor="stateId">State</label>
                             <select name="stateId" id="stateId" className="form-select"
-                                onChange={(e)=>{
-                                    const {value} = e.target;
+                                onChange={(e) => {
+                                    const { value } = e.target;
                                     onStateChange(parseInt(value));
                                 }}
                             >
@@ -202,6 +207,7 @@ const EmployeeForm: React.FC = () => {
                             </select>
                         </div>
                     </div>
+                    <hr />
                     <div className="row">
                         <div className="col-12 text-center">
                             <input type="button" value="Save" className="btn btn-primary" />
