@@ -2,9 +2,16 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { IGenders, ICountries, IStates, ICities } from "../../Utils/Interfaces/MasterInterfaces";
 import { GenderSevice, GetAllCitiesByState, GetAllCoutries, GetAllStatesByCountry } from "../../Utils/Services/MasterServices";
 import { IEmployee } from "../../Utils/Interfaces/EmployeeInterfaces";
-import { PostEmployee } from "../../Utils/Services/EmployeeSevices";
+import { GetEmployeeById, PostEmployee, UpdateEmployee } from "../../Utils/Services/EmployeeSevices";
 
-const EmployeeForm: React.FC = () => {
+interface IEmployeeFormProps {
+    employeeId: number;
+    setIsSaved: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) => {
+
+    const { employeeId, setIsSaved }: IEmployeeFormProps = props;
 
     const [genders, setGenders] = useState<IGenders[]>([]);
     const [countries, setCountries] = useState<ICountries[]>([]);
@@ -61,26 +68,49 @@ const EmployeeForm: React.FC = () => {
 
     const [employee, setEmployee] = useState<IEmployee>(initialEmployee)
 
+    useEffect(() => {
+        if (employeeId > 0) {
+            GetEmployeeById(employeeId).then((data: IEmployee) => {
+                setEmployee(data);
+                onCountryChange(data.countryId);
+                onStateChange(data.stateId)
+            })
+        }
+    }, [employeeId])
+
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { value, name, type } = e.target;
-        setEmployee((prev)=>({
+        setEmployee((prev) => ({
             ...prev,
             [name]:
                 type === "radio" ? Number(value) :
-                type === "date" ? new Date(value) :
-                value
+                    type === "date" ? new Date(value) :
+                        value
         }))
     }
 
     const onSaveClick = () => {
-        PostEmployee(employee).then((data: string)=>{
-            console.log("employee", data);
-            alert(data);
-            setEmployee(initialEmployee);
-        }).catch((error: Error) => {
-            console.error("Error in saving employee", error);
-            alert(error.message);
-        })
+        if (employee.employeeId > 0) {
+            UpdateEmployee(employee).then((data: string) => {
+                alert(data);
+                setEmployee(initialEmployee);
+                setIsSaved(true);
+            }).catch((error: Error) => {
+                console.error("Error in saving employee", error);
+                alert(error.message);
+            })
+        }
+        else {
+            PostEmployee(employee).then((data: string) => {
+                console.log("employee", data);
+                alert(data);
+                setIsSaved(true);
+                setEmployee(initialEmployee);
+            }).catch((error: Error) => {
+                console.error("Error in saving employee", error);
+                alert(error.message);
+            })
+        }
     }
 
     return (
