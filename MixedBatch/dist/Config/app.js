@@ -11,7 +11,11 @@ console.log("The sum of 5 and 3 is:", Add(5, 3));
 console.log("The sum of 5 and 3 is:", Add(50, 3));
 // to run ts in watch mode use command: tsc app.ts --watch
 // to run ts in watch mode use command: tsc -w app.ts
-// Session 2 command
+// Session 3 command
 // tsc app.ts .\Session3\file1.ts .\Session3\file2.ts
 // tsc -w app.ts .\Session3\file1.ts .\Session3\file2.ts --outDir .\dist\
-/// outDir - specifies an output folder for all emitted files.
+// outDir - specifies an output folder for all emitted files.
+// outFile - Concatenate and emit output to single file.
+// tsc -w app.ts .\Session3\file1.ts .\Session3\file2.ts --outFile .\dist\appbundle.js
+// tsc
+// tsc -w

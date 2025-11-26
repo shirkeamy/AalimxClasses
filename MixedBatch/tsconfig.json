@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
         "target": "es5",
-        // "outDir": "./dist/Config/"
-        "outFile": "./Output/Config/compiledFile.js"
+        "outDir": "./dist/Config/"
+        // "outFile": "./Output/Config/compiledFile.js"
     },
     "include": [
-        //"./**/*" // all files from project folder
+        "./**/*" // all files from project folder
         // "./src/**/*" // all files from src folder
-        "./Session5/objectDT.ts"
+        // "./Session5/objectDT.ts"
     ],
     "exclude": [
         // "./src/**/*"
