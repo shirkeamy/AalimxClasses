@@ -11,13 +11,3 @@ while (i <= 10) {
     document.body.appendChild(pNumber);
     i++;
 }
-
-// do {
-//     // code
-// } while (condition);
-
-var j = 1;
-do{
-    console.log("Do While Number is: " + j);
-    j++;
-} while(j <= 10);
