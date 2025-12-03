@@ -6,8 +6,8 @@ for (var num = 0; num < 10; num++) {
 }
 var userNames = ["Amol", "Sanket", "Ajinkya", "Prasad"];
 var userNameHeading = document.createElement("h2");
-for (var i = 0; i < userNames.length; i++) {
-    userNameHeading.textContent += userNames[i] + " ";
+for (var i_1 = 0; i_1 < userNames.length; i_1++) {
+    userNameHeading.textContent += userNames[i_1] + " ";
 }
 document.body.appendChild(userNameHeading);
 for (var index in userNames) {
