@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <h1>{username}</h1>
+        <h1 className='text-success'>{username}</h1>
         <p>
           {
             5 + 6

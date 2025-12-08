@@ -2,6 +2,33 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to install packages
+
+Below are common ways to add or remove packages for this project using npm (the examples assume a package named `package-name`).
+
+- Install and save to dependencies (for runtime):
+
+	`npm install package-name`
+
+	This adds `package-name` to the `dependencies` section in `package.json` and installs it into `node_modules`.
+
+- Install a specific version:
+
+	`npm install package-name@1.2.3`
+
+- Install packages listed in `package.json` (fresh install / after cloning):
+
+	`npm install`
+
+- Uninstall a package:
+
+	`npm uninstall package-name`
+
+Tips
+- After editing `package.json` manually, run `npm install` to sync `node_modules` and update `package-lock.json`.
+- Check https://www.npmjs.com/ for package details and the package's README for usage notes.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
