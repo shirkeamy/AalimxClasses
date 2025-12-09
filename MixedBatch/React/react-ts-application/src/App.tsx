@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Heading from './Components/Heading';
+import Home from './Pages/Home';
 
 function App() {
   let username: string = "Guest";
@@ -8,6 +10,14 @@ function App() {
   return (
     <>
       <div className="App">
+        
+        <Home />
+<hr />
+<p>
+  Home component is end here
+</p>
+        <Heading />
+
         <h1 className='text-success'>{username}</h1>
         <p>
           {
