@@ -150,3 +150,68 @@ export default ComponentName;
 
 These show common patterns: plain functions, arrow functions, TypeScript typing with and without React.FC, named vs default exports, and advanced helpers like forwardRef and memo.
 Function components are now the preferred approach in modern React development.
+
+### What is Props in React? (point-to-point)
+1. Props (short for "properties") are inputs passed from a parent component to a child component to configure its behavior and appearance.  
+2. Props are read-only inside the child; a component should not mutate its props.  
+3. Props enable component reuse and composition—different parents can render the same child with different data.  
+4. Props commonly include primitives, objects, functions (callbacks), and children (JSX).  
+5. In TypeScript, props are described with interfaces (or types) so the compiler enforces correct usage.  
+6. You can access props via the function parameter (props) or destructure them directly in the parameter list.  
+7. Default values for optional props can be provided via default parameters or by assigning defaults during destructuring.
+
+### Syntax examples (full components)
+
+1) Example using React.FC with props parameter + destructuring inside the function
+```tsx
+import React from "react";
+
+interface IButtonProps {
+	id?: string;
+	value: string;
+	className?: string;
+	index?: number;
+	onClick?: () => void;
+}
+
+const MyButton: React.FC<IButtonProps> = (props: IButtonProps) => {
+	const { value, id, className, index, onClick } = props;
+
+	return (
+		<button id={id} className={className} data-index={index} onClick={onClick}>
+			{value}
+		</button>
+	);
+};
+
+export default MyButton;
+
+/* Usage:
+<MyButton value="Save" id="save-btn" className="primary" index={1} onClick={() => console.log('clicked')} />
+*/
+```
+
+2) Example using React.FC with destructured props in the parameter list
+```tsx
+import React from "react";
+
+interface IWelcomeProps {
+	userName: string;
+	subtitle?: string;
+}
+
+const WelcomeMessage: React.FC<IWelcomeProps> = ({ userName, subtitle = "Welcome!" }) => {
+	return (
+		<header>
+			<h1>Hello, {userName}</h1>
+			<p>{subtitle}</p>
+		</header>
+	);
+};
+
+export default WelcomeMessage;
+
+/* Usage:
+<WelcomeMessage userName="Alice" subtitle="Glad to see you" />
+*/
+```
