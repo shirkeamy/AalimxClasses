@@ -215,3 +215,105 @@ export default WelcomeMessage;
 <WelcomeMessage userName="Alice" subtitle="Glad to see you" />
 */
 ```
+
+### What is Routing in React?
+
+Routing is the process of navigating between different views or pages in a single-page application (SPA) without full page reloads. React Router is the most popular library for implementing routing.
+
+**Key concepts:**
+- Routes map URL paths to components.
+- Users can bookmark and share URLs.
+- Navigation is fast since only component state changes, not the entire page.
+
+### How to Implement Routing in React
+
+#### Step 1: Install React Router
+
+```bash
+npm install react-router-dom
+```
+
+#### Step 2: Set Up BrowserRouter in Your App
+
+Wrap your app with `BrowserRouter` at the top level (usually in `index.tsx` or `App.tsx`):
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>
+);
+```
+
+#### Step 3: Define Routes in Your App Component
+
+```tsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
+
+const App: React.FC = () => {
+	return (
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/about" element={<About />} />
+			<Route path="/contact" element={<Contact />} />
+			<Route path="*" element={<NotFound />} />
+		</Routes>
+	);
+};
+
+export default App;
+```
+
+#### Step 4: Create Page Components
+
+```tsx
+// pages/Home.tsx
+const Home: React.FC = () => {
+	return <h1>Welcome to Home</h1>;
+};
+
+export default Home;
+```
+
+#### Step 5: Add Navigation Links
+
+Use `Link` or `NavLink` to navigate without page reloads:
+
+```tsx
+import { Link, NavLink } from "react-router-dom";
+
+const Navigation: React.FC = () => {
+	return (
+		<nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">React TS Application</a>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/home">Home</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/about">About</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+	);
+};
+
+export default Navigation;
+```
