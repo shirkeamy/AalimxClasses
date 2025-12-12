@@ -317,3 +317,38 @@ const Navigation: React.FC = () => {
 
 export default Navigation;
 ```
+
+### What is state in React?
+
+State is component-specific data that can change over time and drives what the UI renders. When state updates, React re-renders the component (and its children) to reflect the new state. In function components you manage state with the useState hook; in class components you use this.state and this.setState.
+
+Key points:
+- State is local to a component (or shared via props/context).
+- Updater returned by useState hook.
+- Treat state as immutable — replace values rather than mutate them.
+- Use "lifting state up" to share state between sibling components.
+
+Example (Function component with TypeScript):
+
+```tsx
+import React, { useState } from "react";
+
+const Counter: React.FC = () => {
+	const [count, setCount] = useState<number>(0);
+
+	const increment = () => setCount(prev => prev + 1);
+	const decrement = () => setCount(prev => prev - 1);
+	const reset = () => setCount(0);
+
+	return (
+		<div>
+			<h3>Count: {count}</h3>
+			<button onClick={decrement} aria-label="decrement">-</button>
+			<button onClick={increment} aria-label="increment">+</button>
+			<button onClick={reset} aria-label="reset">Reset</button>
+		</div>
+	);
+};
+
+export default Counter;
+```

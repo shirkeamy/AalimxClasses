@@ -14,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Navigation />
-    <App />
+    <div className='container mt-4'>
+      <App />
+    </div>
   </React.StrictMode>
 );
 
