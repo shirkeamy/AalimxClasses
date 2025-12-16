@@ -352,3 +352,61 @@ const Counter: React.FC = () => {
 
 export default Counter;
 ```
+### What is Prop drilling in React?
+
+Prop drilling is when you pass props through multiple intermediate components that do not need them, solely so a deeply nested component can use the data. This creates verbose, hard-to-maintain code and couples components unnecessarily.
+
+Example (shows prop drilling):
+
+```tsx
+// App.tsx
+import React from "react";
+import Parent from "./Parent";
+
+const App: React.FC = () => {
+	const user = { name: "Alice", role: "admin" };
+	return <Parent user={user} />;
+};
+
+export default App;
+
+// Parent.tsx (doesn't use `user`, only forwards it)
+import React from "react";
+import Child from "./Child";
+
+interface Props { user: { name: string; role: string } }
+
+const Parent: React.FC<Props> = ({ user }) => {
+	return <Child user={user} />;
+};
+
+export default Parent;
+
+// Child.tsx (still doesn't use `user`, only forwards it)
+import React from "react";
+import GrandChild from "./GrandChild";
+
+interface Props { user: { name: string; role: string } }
+
+const Child: React.FC<Props> = ({ user }) => {
+	return <GrandChild user={user} />;
+};
+
+export default Child;
+
+// GrandChild.tsx (actually consumes `user`)
+import React from "react";
+
+interface Props { user: { name: string; role: string } }
+
+const GrandChild: React.FC<Props> = ({ user }) => {
+	return <div>Logged in as: {user.name} ({user.role})</div>;
+};
+
+export default GrandChild;
+```
+
+Why it's a problem:
+- Many components get extra props they don't use.
+- Refactors become error-prone (every intermediate must keep forwarding).
+- Harder to reuse components in different trees.

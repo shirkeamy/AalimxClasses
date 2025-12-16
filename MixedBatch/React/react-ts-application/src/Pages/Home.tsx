@@ -2,8 +2,10 @@ import React from "react"
 import Heading from "../Components/Heading"
 import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
+import ComponentA from "../PropDrilling/ComponentA"
 
 const Home = () => {
+    const userName: string = "Peter Parker";
     return (
         <>
             <Welcome userName="Peter" />
@@ -16,6 +18,9 @@ const Home = () => {
             </p>
 
             <ButtonWrapper value={"Save Form"} className={"btn-primary btn-sm"} id={"btnSave"} />
+
+            <ComponentA userName={userName} />
+
         </>
     )
 }
