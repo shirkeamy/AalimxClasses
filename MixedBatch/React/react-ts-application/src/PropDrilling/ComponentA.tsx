@@ -1,15 +1,10 @@
 import React from "react";
 import ComponentB from "./ComponentB";
 
-interface ComponentAProps {
-    userName: string;
-}
-
-const ComponentA: React.FC<ComponentAProps> = (props: ComponentAProps) =>{
-    const { userName } = props;
+const ComponentA: React.FC = () =>{
     return (
         <>
-            <ComponentB userName={userName} />
+            <ComponentB />
         </>
     )
 }

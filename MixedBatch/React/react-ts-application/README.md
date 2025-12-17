@@ -410,3 +410,107 @@ Why it's a problem:
 - Many components get extra props they don't use.
 - Refactors become error-prone (every intermediate must keep forwarding).
 - Harder to reuse components in different trees.
+
+### Context API
+
+#file:Home.tsx
+```tsx
+import React, { createContext, useState } from "react";
+import ComponentA from "./ComponentA";
+
+export const data = createContext<string>("");   // 1. Create context
+export const data1 = createContext<string>("");  // 1. Create context
+
+const Home: React.FC = () => {
+	const [useName] = useState("Peter Parker"); // example shared value
+	const [count] = useState(10); // kept in Home but not drilled
+
+	return (
+		// 2. Provider
+		<data.Provider value={useName}>
+			<data1.Provider value="Pune">
+				{/* ComponentA no longer needs props */}
+				<ComponentA />
+			</data1.Provider>
+		</data.Provider>
+	);
+};
+
+export default Home;
+```
+
+#file:ComponentA.tsx
+```tsx
+import React from "react";
+import ComponentB from "./ComponentB";
+
+// No props passed into ComponentA anymore
+const ComponentA: React.FC = () => {
+	return <ComponentB />;
+};
+
+export default ComponentA;
+```
+
+#file:ComponentB.tsx
+```tsx
+import React from "react";
+import ComponentC from "./ComponentC";
+
+// Still no props forwarded
+const ComponentB: React.FC = () => {
+	return <ComponentC />;
+};
+
+export default ComponentB;
+```
+
+#file:ComponentC.tsx
+```tsx
+import React from "react";
+import { data, data1 } from "../Home";
+
+// Consuming with nested Consumers (as requested)
+const ComponentC: React.FC = () => {
+	return (
+		<data.Consumer>
+			{(user) => {
+				return (
+					<data1.Consumer>
+						{(address) => {
+							return (
+								<>
+									<h3>User name in C component - {user}</h3>
+									<h3>Address name in C component - {address}</h3>
+								</>
+							);
+						}}
+					</data1.Consumer>
+				);
+			}}
+		</data.Consumer>
+	);
+};
+
+export default ComponentC;
+```
+
+### useContext Hook:
+Optional, cleaner alternative for ComponentC using hooks
+```tsx
+
+// Alternative using useContext (preferred for readability)
+import React, { useContext } from "react";
+import { data, data1 } from "../Home";
+
+const ComponentCHook: React.FC = () => {
+	const user = useContext(data);
+	const address = useContext(data1);
+	return (
+		<>
+			<h3>User name in C component - {user}</h3>
+			<h3>Address name in C component - {address}</h3>
+		</>
+	);
+};
+```

@@ -1,8 +1,11 @@
-import React from "react"
+import React, { createContext } from "react"
 import Heading from "../Components/Heading"
 import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
 import ComponentA from "../PropDrilling/ComponentA"
+
+export const data = createContext<string>(""); // step 1: create context
+export const address = createContext<string>(""); // step 1: create context
 
 const Home = () => {
     const userName: string = "Peter Parker";
@@ -19,8 +22,11 @@ const Home = () => {
 
             <ButtonWrapper value={"Save Form"} className={"btn-primary btn-sm"} id={"btnSave"} />
 
-            <ComponentA userName={userName} />
-
+            <data.Provider value={userName}>
+                <address.Provider value={"New York, USA"}>
+                    <ComponentA />
+                </address.Provider>
+            </data.Provider>
         </>
     )
 }
