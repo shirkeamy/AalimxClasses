@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { data, address } from "../Pages/Home";
 
 const ComponentC: React.FC = () =>{
-    
+    const userName = useContext(data);
+    const userAddress = useContext(address);
     return (
         <>
             <h1>This is component C</h1>
-            <data.Consumer>
+            <p>User Name from Context hook: {userName}</p>
+            <p>Address from Context hook: {userAddress}</p>
+            {/* <data.Consumer>
                 {
                     (user) => {
                         return (
@@ -25,7 +28,7 @@ const ComponentC: React.FC = () =>{
                         )
                     }
                 }
-            </data.Consumer>
+            </data.Consumer> */}
         </>
     )
 }
