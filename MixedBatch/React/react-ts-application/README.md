@@ -514,3 +514,190 @@ const ComponentCHook: React.FC = () => {
 	);
 };
 ```
+### What are Hooks in React?
+
+Hooks are functions that let you "hook into" React state and lifecycle features from function components. Introduced to enable stateful logic and side-effect management without using class components, Hooks promote clearer, more reusable, and more testable code.
+
+Key points (theory only)
+- Purpose: provide state, lifecycle, context and other React features to function components, avoiding class-based APIs.
+- Composition: encourage extracting and reusing stateful logic via custom hooks (plain functions that call built-in hooks).
+- Determinism: Hooks follow predictable execution order across renders so React can associate hook calls with component instances.
+- Rules of Hooks:
+	- Only call hooks at the top level of a React function component or a custom hook (never inside loops, conditions, or nested functions).
+	- Only call hooks from React function components or custom hooks (not from regular JavaScript functions).
+- Built-in hook categories (conceptual overview):
+	- State management: useState and useReducer let components hold and update local state.
+	- Effects and lifecycle: useEffect and useLayoutEffect run side effects after render (with different timing guarantees).
+	- Context and refs: useContext accesses context values; useRef stores mutable values that persist across renders and can reference DOM nodes.
+	- Performance helpers: useMemo and useCallback memoize values or functions to avoid unnecessary recalculations or re-renders.
+	- Advanced integration: useImperativeHandle customizes the instance value exposed to parent refs; useDebugValue helps debugging custom hooks.
+- Custom hooks: simple functions that compose built-in hooks to encapsulate and share behavior (they follow the same rules and naming convention, typically starting with "use").
+- Benefits:
+	- Less boilerplate and clearer component code compared to classes.
+	- Better separation of concerns through composable logic.
+	- Easier testing and reuse of stateful logic across components.
+- Considerations:
+	- Hooks are not a replacement for all patterns; choose the right hook or architecture for complex scenarios.
+	- Proper dependency management in effect-like hooks is essential to avoid stale closures or infinite loops.
+
+In summary: Hooks provide a concise, composable API to use React features in function components while enforcing predictable usage patterns and enabling reusable stateful logic via custom hooks.
+
+## useState
+
+useState lets a function component hold local state. It returns a state value and a setter.
+
+Example (TypeScript):
+```tsx
+import React, { useState } from "react";
+
+const Counter: React.FC = () => {
+	const [count, setCount] = useState<number>(0);
+
+	return (
+		<div>
+			<p>Count: {count}</p>
+			<button onClick={() => setCount(c => c - 1)}>-</button>
+			<button onClick={() => setCount(c => c + 1)}>+</button>
+			<button onClick={() => setCount(0)}>Reset</button>
+		</div>
+	);
+};
+
+export default Counter;
+```
+
+## useContext
+
+useContext reads the current value of a React Context inside a function component. Use a Provider at a higher level to supply the value.
+
+Example:
+```tsx
+import React, { createContext, useContext } from "react";
+
+const ThemeContext = createContext<"light" | "dark">("light");
+
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	return <ThemeContext.Provider value="dark">{children}</ThemeContext.Provider>;
+};
+
+const ThemedLabel: React.FC = () => {
+	const theme = useContext(ThemeContext);
+	return <div>Current theme: {theme}</div>;
+};
+
+// Usage:
+// <ThemeProvider>
+//   <ThemedLabel />
+// </ThemeProvider>
+```
+
+## useEffect
+
+useEffect performs side effects in function components — things like fetching data, timers, subscriptions, or manually updating the DOM.
+
+Signature
+```ts
+useEffect(effect: () => void | (() => void | undefined), deps?: React.DependencyList)
+```
+- effect: a function run after render. It can optionally return a cleanup function that runs before the next effect and on unmount.
+- deps: an optional array of dependencies that control when the effect runs.
+
+Behavior
+- No deps provided: effect runs after every render.
+- Empty array []: effect runs once after the first render (mount).
+- [a, b]: effect runs when any dependency value changes.
+- Cleanup function (returned by effect) runs before the next invocation and when the component unmounts.
+
+Important rules and notes
+- Don’t make the effect function itself async. Use an inner async function or IIFE.
+- Always include dependencies used inside the effect; follow the exhaustive-deps lint rule or justify omissions.
+- Use cleanup to avoid memory leaks (clear timers, cancel subscriptions, abort fetches).
+- Prefer functional updates (setState(prev => ...)) when state in effect depends on previous state to avoid stale closures.
+
+Examples
+
+1) Runs on every render (not usually recommended — demonstrates behavior)
+```tsx
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+	// This schedules a timeout on every render — can create many timers
+	setTimeout(() => {
+		setCount(c => c + 1);
+	}, 1000);
+});
+
+return <h1>I've rendered {count} times!</h1>;
+```
+
+2) Run only once at first render (with cleanup)
+```tsx
+import { useState, useEffect } from "react";
+
+const Timer: React.FC = () => {
+	const [seconds, setSeconds] = useState(0);
+
+	useEffect(() => {
+		const id = setInterval(() => setSeconds(s => s + 1), 1000);
+		return () => clearInterval(id); // cleanup on unmount
+	}, []); // runs once
+
+	return <h1>Seconds: {seconds}</h1>;
+};
+```
+
+3) Runs when a dependency changes
+```tsx
+const [count, setCount] = useState(0);
+const [calculation, setCalculation] = useState(0);
+
+useEffect(() => {
+	setCalculation(() => count * 2);
+}, [count]); // runs only when `count` changes
+
+return (
+	<>
+		<p>Count: {count}</p>
+		<button onClick={() => setCount(c => c + 1)}>+</button>
+		<p>Calculation: {calculation}</p>
+	</>
+);
+```
+
+4) Fetching data with AbortController and proper cleanup
+```tsx
+import { useEffect, useState } from "react";
+
+const UsersList: React.FC = () => {
+	const [users, setUsers] = useState<any[]>([]);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		const controller = new AbortController();
+
+		(async () => {
+			try {
+				const res = await fetch("/api/users", { signal: controller.signal });
+				if (!res.ok) throw new Error("Network error");
+				const data = await res.json();
+				setUsers(data);
+			} catch (err: any) {
+				if (err.name !== "AbortError") setError(err.message);
+			}
+		})();
+
+		return () => controller.abort(); // cancel fetch on unmount or re-run
+	}, []); // or include dependencies as needed
+
+	if (error) return <div>Error: {error}</div>;
+	return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
+};
+```
+
+Common pitfalls
+- Forgetting cleanup (memory leaks, duplicated timers, open subscriptions).
+- Missing dependencies (stale values or unexpected behavior) — use useCallback/useMemo to stabilize dependencies.
+- Making the effect async directly (causes the hook to return a promise instead of cleanup).
+
+In short: useEffect is the place for side effects; control when it runs with the dependency array and always clean up after subscriptions or timers.
+

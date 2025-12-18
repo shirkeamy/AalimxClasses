@@ -1,4 +1,4 @@
-import React, { createContext } from "react"
+import React, { createContext, useEffect } from "react"
 import Heading from "../Components/Heading"
 import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
@@ -9,6 +9,22 @@ export const address = createContext<string>(""); // step 1: create context
 
 const Home = () => {
     const userName: string = "Peter Parker";
+
+    const [count, setCount] = React.useState<number>(0);
+    const [apiCalled, setApiCalled] = React.useState<boolean>(false);
+
+    useEffect(() =>{
+        console.log("Home Component rendered");
+    })
+
+    useEffect(() =>{
+        console.log("Home Component rendered on first load only");
+    }, [])
+
+    useEffect(() =>{
+        console.log("Home Component rendered on dependency change: count = ", count);
+    }, [apiCalled])
+
     return (
         <>
             <Welcome userName="Peter" />
@@ -21,6 +37,21 @@ const Home = () => {
             </p>
 
             <ButtonWrapper value={"Save Form"} className={"btn-primary btn-sm"} id={"btnSave"} />
+
+            <h4>{count}</h4>
+            <input
+            type="button"
+            value="Click Me"
+            className="btn-secondary btn-md"
+            id="btnClick"
+            onClick={()=>{setCount(count + 1 )}} />
+            
+            <input
+            type="button"
+            value="Click Me"
+            className="btn-secondary btn-md"
+            id="btnClick"
+            onClick={()=>{setApiCalled(!apiCalled)}} />
 
             <data.Provider value={userName}>
                 <address.Provider value={"New York, USA"}>
