@@ -701,3 +701,40 @@ Common pitfalls
 
 In short: useEffect is the place for side effects; control when it runs with the dependency array and always clean up after subscriptions or timers.
 
+### Custom Hooks in React
+
+Custom hooks let you extract and reuse stateful logic. Rules: name must start with "use", can call other hooks, and should be pure in return values (no side effects during render). They improve readability and testability by encapsulating behavior.
+
+Example 1 — Basic custom hook (useToggle)
+```tsx
+// hooks/useToggle.ts
+import { useState } from "react";
+
+const useToggle = (initial = false) => {
+	const [value, setValue] = useState<boolean>(initial);
+	
+	return [value, (next?: boolean) => {
+		setValue(v => (typeof next === "boolean" ? next : !v));
+	}] as const;
+};
+
+export default useToggle;
+```
+
+Usage:
+```tsx
+import React from "react";
+import useToggle from "./hooks/useToggle";
+
+const ToggleExample: React.FC = () => {
+	const [on, toggle] = useToggle(false);
+	return (
+		<div>
+			<p>{on ? "ON" : "OFF"}</p>
+			<button onClick={() => toggle()}>Flip</button>
+			<button onClick={() => toggle(true)}>Set ON</button>
+			<button onClick={() => toggle(false)}>Set OFF</button>
+		</div>
+	);
+};
+```
