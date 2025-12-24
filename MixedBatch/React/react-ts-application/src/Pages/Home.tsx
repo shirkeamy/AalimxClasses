@@ -4,6 +4,8 @@ import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
 import ComponentA from "../PropDrilling/ComponentA"
 import useToggle from "../hooks/useToggle";
+import { GetAllEmployees, GetEmployeeById } from "../Utils/Services/EmployeeServices"
+import { IEmployee, IEmployees } from "../Utils/Interfaces/EmployeeInterfaces"
 
 export const data = createContext<string>(""); // step 1: create context
 export const address = createContext<string>(""); // step 1: create context
@@ -26,6 +28,24 @@ const Home = () => {
     useEffect(() => {
         console.log("Home Component rendered on dependency change: count = ", count);
     }, [apiCalled])
+
+    useEffect(() => {
+        GetAllEmployees()
+            .then((res: IEmployees[]) => {
+                console.log("Employees Data: ", res);
+            })
+            .catch((err: Error) => {
+                console.error("Error while fetching employees: ", err.message);
+            })
+
+        GetEmployeeById(1)
+            .then((res: IEmployee) => {
+                console.log("Employee Data: ", res);
+            })
+            .catch((err: Error) => {
+                console.error("Error while fetching employees: ", err.message);
+            })
+    }, [])
 
     return (
         <>
