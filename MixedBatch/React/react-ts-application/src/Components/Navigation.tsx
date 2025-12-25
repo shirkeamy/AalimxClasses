@@ -16,6 +16,9 @@ const Navigation: React.FC = () => {
                         <li className="nav-item">
                             <a className="nav-link" href="/contact">Contact</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/crud-application">CRUD Operation</a>
+                        </li>
                     </ul>
                 </div>
             </div>

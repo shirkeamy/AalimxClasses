@@ -4,7 +4,7 @@ import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
 import ComponentA from "../PropDrilling/ComponentA"
 import useToggle from "../hooks/useToggle";
-import { GetAllEmployees, GetEmployeeById } from "../Utils/Services/EmployeeServices"
+import { GetAllEmployees, GetEmployeeById, PostEmployee, PutEmployee } from "../Utils/Services/EmployeeServices"
 import { IEmployee, IEmployees } from "../Utils/Interfaces/EmployeeInterfaces"
 
 export const data = createContext<string>(""); // step 1: create context
@@ -30,21 +30,25 @@ const Home = () => {
     }, [apiCalled])
 
     useEffect(() => {
-        GetAllEmployees()
-            .then((res: IEmployees[]) => {
-                console.log("Employees Data: ", res);
-            })
-            .catch((err: Error) => {
-                console.error("Error while fetching employees: ", err.message);
-            })
-
-        GetEmployeeById(1)
-            .then((res: IEmployee) => {
-                console.log("Employee Data: ", res);
-            })
-            .catch((err: Error) => {
-                console.error("Error while fetching employees: ", err.message);
-            })
+        PutEmployee({
+            employeeId: 19,
+            employeeName: "Peter England",
+            employeeCode: "EMP031",
+            genderId: 1,
+            dateOfBirth: new Date(),
+            emailId: "example@example.com",
+            telephone: "123456879",
+            jobTitle: "Sr. Developer",
+            salary: 15420,
+            address: "Pune",
+            cityId: 1,
+            stateId: 1,
+            countryId: 1
+        }).then((res: string) => {
+            console.log("Employee saved successfully: ", res);
+        }).catch((err: Error) => {
+            console.error(err.message);
+        });
     }, [])
 
     return (

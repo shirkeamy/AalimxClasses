@@ -19,7 +19,7 @@ export interface IEmployee {
   employeeName: string
   employeeCode: string
   genderId: number
-  dateOfBirth: string
+  dateOfBirth: Date
   emailId: string
   telephone: string
   jobTitle: string
