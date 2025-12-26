@@ -31,6 +31,8 @@ export const GetEmployeeById = async (employeeId: number): Promise<IEmployee> =>
 
     const data: IEmployee = await response.json();
 
+    data.dateOfBirth = new Date(data.dateOfBirth);
+
     return data;
 }
 
@@ -63,6 +65,22 @@ export const PutEmployee = async (employee: IEmployee): Promise<string> => {
 
     if(!response.ok) {
         throw new Error("Failed to save employee");
+    }
+
+    const data: string = await response.text();
+    return data;
+}
+
+export const DeleteEmployee = async (employeeId: number): Promise<string> => {
+    const response = await fetch(`https://localhost:7150/api/Employee/${employeeId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if(!response.ok) {
+        throw new Error("Failed to delete employee");
     }
 
     const data: string = await response.text();

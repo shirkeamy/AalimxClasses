@@ -4,7 +4,7 @@ import Welcome from "../Components/Welcome"
 import ButtonWrapper from "../Components/Button"
 import ComponentA from "../PropDrilling/ComponentA"
 import useToggle from "../hooks/useToggle";
-import { GetAllEmployees, GetEmployeeById, PostEmployee, PutEmployee } from "../Utils/Services/EmployeeServices"
+import { DeleteEmployee, GetAllEmployees, GetEmployeeById, PostEmployee, PutEmployee } from "../Utils/Services/EmployeeServices"
 import { IEmployee, IEmployees } from "../Utils/Interfaces/EmployeeInterfaces"
 
 export const data = createContext<string>(""); // step 1: create context
@@ -30,25 +30,11 @@ const Home = () => {
     }, [apiCalled])
 
     useEffect(() => {
-        PutEmployee({
-            employeeId: 19,
-            employeeName: "Peter England",
-            employeeCode: "EMP031",
-            genderId: 1,
-            dateOfBirth: new Date(),
-            emailId: "example@example.com",
-            telephone: "123456879",
-            jobTitle: "Sr. Developer",
-            salary: 15420,
-            address: "Pune",
-            cityId: 1,
-            stateId: 1,
-            countryId: 1
-        }).then((res: string) => {
-            console.log("Employee saved successfully: ", res);
+        DeleteEmployee(19).then((data) => {
+            console.log(data);
         }).catch((err: Error) => {
-            console.error(err.message);
-        });
+            console.error("Error while deleting employee: ", err.message);
+        })
     }, [])
 
     return (
