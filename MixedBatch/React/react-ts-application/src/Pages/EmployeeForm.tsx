@@ -1,4 +1,4 @@
-import React, { ChangeEvent, InputEventHandler, useEffect, useState } from "react";
+import React, { ChangeEvent, InputEventHandler, useEffect, useState, Dispatch, SetStateAction } from "react";
 import { GetGenders, GetCountries, GetStates, GetCities } from "../Utils/Services/MasterServices";
 import { ICity, ICountry, IGender, IState } from "../Utils/Interfaces/MasterInterfaces";
 import { IEmployee } from "../Utils/Interfaces/EmployeeInterfaces";
@@ -6,10 +6,12 @@ import { GetEmployeeById, PostEmployee, PutEmployee } from "../Utils/Services/Em
 
 interface IEmployeeFormProps {
     employeeId: number;
+    // setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSaved: Dispatch<SetStateAction<boolean>>;
 }
 
 const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) => {
-    const { employeeId }: IEmployeeFormProps = props;
+    const { employeeId, setIsSaved }: IEmployeeFormProps = props;
     console.log("Employee Form component rendered with employeeId: ", employeeId);
     const [genders, setGenders] = useState<IGender[]>([]);
     const [countries, setCountries] = useState<ICountry[]>([]);
@@ -67,6 +69,8 @@ const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) =
         if (employeeId > 0) {
             GetEmployeeById(employeeId).then((data: IEmployee) => {
                 setEmployee(data);
+                onCountryChange(data.countryId)
+                onStateChange(data.stateId)
             }).catch((err: Error) => {
                 console.error("Error while fetching employee by id: ", err.message);
             })
@@ -77,14 +81,20 @@ const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) =
         if (employee.employeeId > 0) {
             PutEmployee(employee).then((data: string) => {
                 alert(data);
+                setIsSaved(true);
+                setEmployee(initialEmployeeState);
             }).catch((err: Error) => {
                 console.error("Error while updating employee: ", err.message);
+                setIsSaved(false);
             })
         } else {
             PostEmployee(employee).then((data: string) => {
                 alert(data);
+                setIsSaved(true);
+                setEmployee(initialEmployeeState);
             }).catch((err: Error) => {
-                console.error("Error while updating employee: ", err.message);
+                console.error("Error while saving employee: ", err.message);
+                setIsSaved(false);
             })
         }
     }
@@ -154,7 +164,7 @@ const EmployeeForm: React.FC<IEmployeeFormProps> = (props: IEmployeeFormProps) =
                                         return (
                                             <div className="form-check form-check-inline">
                                                 <input type="radio" name="genderId" id={`gender-${gender.genderId}`}
-                                                    value={employee.genderId}
+                                                    value={gender.genderId}
                                                     checked={employee.genderId === gender.genderId}
                                                     onChange={onChange}
                                                 />

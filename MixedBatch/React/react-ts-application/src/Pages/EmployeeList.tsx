@@ -12,6 +12,7 @@ const EmployeeList: React.FC = () => {
     useEffect(() => {
         GetAllEmployees().then((data) => {
             setEmployees(data);
+            setIsSaved(false);
         }).catch((err: Error) => {
             console.error("Error while fetching employees: ", err.message);
         });
@@ -33,7 +34,7 @@ const EmployeeList: React.FC = () => {
             <h3>Employee List</h3>
             <div className="row">
                 <div className="col-12">
-                    <EmployeeForm employeeId={employeeId} />
+                    <EmployeeForm employeeId={employeeId} setIsSaved = {setIsSaved} />
                 </div>
             </div>
             <div className="row">
